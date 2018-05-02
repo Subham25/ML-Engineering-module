@@ -24,6 +24,7 @@ validate_feature_inputs <- function(rangevar) {
 }
 
 #* @post /predict
+#* @get /predict
 predict_DeltaTemp <-function(
   HM_Si=1, O2_Blow=1, BLOW_LIME_MATWEIGHT_Combined=1
   , BLOW_IRONOR_MATWEIGHT_Combined=1, BLOW_DOLO_MATWEIGHT_Combined=1

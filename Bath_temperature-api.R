@@ -5,6 +5,7 @@ library(jsonlite)
 load("Bath_Temp_predict_model.RData")
 
 #* @post /predict
+#* @get /predict
 predict_DeltaTemp <-function(
   HM_Si=1, O2_Blow=1, BLOW_LIME_MATWEIGHT_Combined=1
   , BLOW_IRONOR_MATWEIGHT_Combined=1, BLOW_DOLO_MATWEIGHT_Combined=1
@@ -53,3 +54,13 @@ predict_DeltaTemp <-function(
   return(list(Delta_BathTemp=unbox(prediction)))
 }
 
+#* @get /healthcheck
+health_check <- function() {
+  result <- data.frame(
+    "input" = "",
+    "status" = 200,
+    "model_version" = 1
+  )
+  
+  return(result)
+}
