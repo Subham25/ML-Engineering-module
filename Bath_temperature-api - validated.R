@@ -1,8 +1,9 @@
+setwd("/Users/anshul/Downloads")
 library(rpart)
 library(jsonlite)
 #install.packages("gmailr")
 library(gmailr)
-load("Bath_Temp_predict_model.RData")
+load("Bath_Temp_predict_model_retrain.RData")
 
 validate_feature_inputs <- function(rangevar) {
   range_valid <- (rangevar >=0 & rangevar<=1)
@@ -13,7 +14,6 @@ validate_feature_inputs <- function(rangevar) {
     failed <- which(!test_results)
       email_msg <- mime(
         To = "verma.anshul31@gmail.com",
-        From = "verma.anshul31@gmail.com",
         Subject = "Range validation failed - check input values",
         body = "Can you hear me now?")
       send_message(email_msg)
@@ -22,6 +22,16 @@ validate_feature_inputs <- function(rangevar) {
     return("OK")
   }
 }
+
+
+#* @filter logger
+function(req){
+  cat("System time:", as.character(Sys.time()), "\n",
+      "Request method:", req$REQUEST_METHOD, req$PATH_INFO, "\n",
+      "HTTP user agent:", req$HTTP_USER_AGENT, "@", req$REMOTE_ADDR, "\n")
+  plumber::forward()
+}
+
 
 #* @post /predict
 #* @get /predict
@@ -74,7 +84,9 @@ predict_DeltaTemp <-function(
                               loss_radiation_hm=var17,loss_convection_hm=var18,
                               loss_radiation_vessel=var19,loss_convection_vessel=var20)
         prediction <- predict(rf1, test_ds)
-        return(list(Delta_BathTemp=unbox(prediction)))
+        write.table(c(test_ds,prediction),file ="test_ds.csv", append=TRUE, col.names = FALSE, sep = ",")
+        paste("The predicted delta temerature is: ", list(Delta_BathTemp=unbox(prediction)))
+        #return(list(Delta_BathTemp=unbox(prediction)))
   
   } 
   else 

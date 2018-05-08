@@ -1,10 +1,10 @@
 
 rm(list=ls())                                       ### Remove all variables from WS ####
-install.packages("randomForest")
+#install.packages("randomForest")
 setwd("/Users/anshul/Downloads")                    # Setting the wd ####
 library(randomForest)                               ### Libraries requiured ### 
 input_data_retrain = read.csv("BoF_clean_retrain.csv",header = T)   ### Load the dataset ####
-summary(input_data)                                 #### See the summary ####
+summary(input_data_retrain)                                 #### See the summary ####
 
 #### Building RF model on the train dataset ###
 yy = input_data_retrain$Delta_HM_Bath_Temp
@@ -23,4 +23,3 @@ MAE = function(m, o){
 MAE(input_data_retrain$Delta_HM_Bath_Temp,rf1_retrain$predicted)  #### Model performance ####
 cor(input_data_retrain$Delta_HM_Bath_Temp,pred_rf1_retrain)^2      ### R-Square between predictor and actual
 save(rf1_retrain, file='Bath_Temp_predict_model_retrain.RData')     ## saving the model
-
