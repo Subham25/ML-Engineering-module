@@ -1,7 +1,7 @@
 
 rm(list=ls())                                       ### Remove all variables from WS ####
 #install.packages("randomForest")
-setwd("/Users/anshul/Downloads")                    # Setting the wd ####
+#setwd("/Users/anshul/Downloads")                    # Setting the wd ####
 library(randomForest)                               ### Libraries requiured ### 
 input_data_retrain = read.csv("BoF_clean_retrain.csv",header = T)   ### Load the dataset ####
 summary(input_data_retrain)                                 #### See the summary ####

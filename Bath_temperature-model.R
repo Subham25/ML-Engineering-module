@@ -1,9 +1,9 @@
 ####################################################################################################
-# This script build the model
+# This script will build the model
 ####################################################################################################
 
 rm(list=ls())                                       ### Remove all variables from WS ####
-install.packages("randomForest")
+#install.packages("randomForest")
 #setwd("/Users/anshul/Downloads")                    # Setting the wd ####
 library(randomForest)                               ### Libraries requiured ### 
 input_data = read.csv("BoF_clean.csv",header = T)   ### Load the dataset ####
